@@ -71,25 +71,25 @@ class RegisterPage extends ConsumerWidget {
                   labelText: t.register.inviteCode,
                 ),
               ),
-              TextFormField(
-                controller: registerViewModel.emailCodeController,
-                decoration: InputDecoration(
-                  labelText: t.register.verificationCode,
-                  suffixIcon: registerViewModel.isCountingDown
-                      ? Text('${registerViewModel.countdownTime} s')
-                      : TextButton(
-                          onPressed: () =>
-                              registerViewModel.sendVerificationCode(context),
-                          child: Text(t.register.sendCode),
-                        ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return t.register.verificationCodeEmptyError;
-                  }
-                  return null;
-                },
-              ),
+              // TextFormField(
+              //   controller: registerViewModel.emailCodeController,
+              //   decoration: InputDecoration(
+              //     labelText: t.register.verificationCode,
+              //     suffixIcon: registerViewModel.isCountingDown
+              //         ? Text('${registerViewModel.countdownTime} s')
+              //         : TextButton(
+              //             onPressed: () =>
+              //                 registerViewModel.sendVerificationCode(context),
+              //             child: Text(t.register.sendCode),
+              //           ),
+              //   ),
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return t.register.verificationCodeEmptyError;
+              //     }
+              //     return null;
+              //   },
+              // ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: registerViewModel.isLoading
