@@ -8,10 +8,7 @@ on:
       - 'appcast.xml'
   push:
     branches:
-       - main
-       - master
-       - dev
-       - android-fix-action-bug
+       - lx
     paths-ignore:
       - '**.md'
       - 'docs/**'
