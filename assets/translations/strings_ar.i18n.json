@@ -1,6 +1,6 @@
 {
   "general": {
-    "appTitle": "هیدیفای",
+    "appTitle": "KuaiYun",
     "reset": "إعادة تعيين",
     "toggle": {
       "enabled": "مُفعّل",
@@ -240,7 +240,7 @@
     "pageTitle": "حول\nتعريب:م. ابراهيم قاسم",
     "version": "الإصدار",
     "sourceCode": "رمز المصدر",
-    "telegramChannel": "قناة تلگرام",
+    "telegramChannel": "QQ群",
     "checkForUpdate": "التحقق من وجود تحديث",
     "privacyPolicy": "سياسة الخصوصية",
     "termsAndConditions": "الشروط والأحكام"
