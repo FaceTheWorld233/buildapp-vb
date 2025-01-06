@@ -17,15 +17,15 @@ class AuthService {
         // 捕获 422 错误并解析响应体中的错误信息
         final errorDetails = extract422ErrorDetails(e.toString());
         throw errorDetails;
-      } else if (e.toString().contains("500")) {
+      } else if (e.toString().contains("500") || e.toString().contains("400")) {
         final errorDetails = extract500ErrorDetails(e.toString());
         throw errorDetails;
       } else if (e.toString().contains("No accessible domains")) {
-        throw "登录失败：当前没有可用域名，请稍后再试。";
+        throw "当前没有可用域名，请稍后再试。";
       } else if (e.toString().contains("timeout")) {
-        throw "登录失败：网络超时，请检查网络连接。";
+        throw "网络超时，请检查网络连接。";
       } else {
-        throw "登录失败：发生未知错误，请稍后重试。";
+        throw "发生未知错误，请稍后重试。";
       }
     }
   }
@@ -51,16 +51,16 @@ class AuthService {
       if (e.toString().contains("422")) {
         // 捕获 422 错误并解析响应体中的错误信息
         final errorDetails = extract422ErrorDetails(e.toString());
-        throw "注册失败：输入信息有误，请检查您的注册信息。\n$errorDetails";
+        throw "输入信息有误，请检查您的注册信息。\n$errorDetails";
       } else if (e.toString().contains("500")) {
         final errorDetails = extract500ErrorDetails(e.toString());
         throw errorDetails;
       } else if (e.toString().contains("No accessible domains")) {
-        throw "注册失败：当前没有可用域名，请稍后再试。";
+        throw "当前没有可用域名，请稍后再试。";
       } else if (e.toString().contains("timeout")) {
-        throw "注册失败：网络超时，请检查网络连接。";
+        throw "网络超时，请检查网络连接。";
       } else {
-        throw "注册失败：发生未知错误，请稍后重试。";
+        throw "发生未知错误，请稍后重试。";
       }
     }
   }

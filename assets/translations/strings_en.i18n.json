@@ -73,7 +73,9 @@
         "selectPaymentMethod": "Select payment method",
         "unknown": "Unknown",
         "close": "Close",
-        "selectPrice": "Please select a price"
+        "selectPrice": "Please select a price",
+        "couponCode": "Coupon(optional)",
+        "verifyCoupon": "Verify"
     },
     "payments": {
         "noPayments": "No Payments",

@@ -73,7 +73,9 @@
         "noData": "无数据",
         "close": "关闭",
         "subscribe": "订阅",
-        "selectPrice": "请选择价格"
+        "selectPrice": "请选择价格",
+        "couponCode": "优惠卷(可选)",
+        "verifyCoupon": "验证"
     },
     "payments": {
         "noPayments": "没有可用的支付方式",

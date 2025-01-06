@@ -36,10 +36,19 @@ class OrderService {
   }
 
   Future<Map<String, dynamic>> createOrder(
-      String accessToken, int planId, String period) async {
+      String accessToken, int planId, String period, String? couponCode) async {
     return await _httpService.postRequest(
       "/api/v1/user/order/save",
-      {"plan_id": planId.toString(), "period": period},
+      {"plan_id": planId.toString(), "period": period, "coupon_code": couponCode},
+      headers: {'Authorization': accessToken},
+    );
+  }
+
+  Future<Map<String, dynamic>> verifyCoupon(
+      String accessToken, int planId, String couponCode) async {
+    return await _httpService.postRequest(
+      "/api/v1/user/coupon/check",
+      {"plan_id": planId.toString(), "code": couponCode},
       headers: {'Authorization': accessToken},
     );
   }
