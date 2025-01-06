@@ -1,4 +1,4 @@
-# .ONESHELL:
+# .ONESHELL: 
 include dependencies.properties
 MKDIR := mkdir -p
 RM  := rm -rf
