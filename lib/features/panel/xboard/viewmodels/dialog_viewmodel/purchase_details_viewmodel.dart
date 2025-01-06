@@ -1,6 +1,7 @@
 // purchase_details_view_model.dart
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:hiddify/features/panel/xboard/models/order_model.dart';
 import 'package:hiddify/features/panel/xboard/services/http_service/order_service.dart';
 import 'package:hiddify/features/panel/xboard/services/purchase_service.dart';
@@ -17,6 +18,8 @@ class PurchaseDetailsViewModel extends ChangeNotifier {
   final OrderService _orderService = OrderService();
   bool get isLoading => _isLoading;
   String get statusMessage => _statusMessage;
+  final TextEditingController couponCodeController = TextEditingController();
+  double discount = 1.0;
 
   void _setLoading(bool value) {
     _isLoading = value;
@@ -38,6 +41,38 @@ class PurchaseDetailsViewModel extends ChangeNotifier {
     selectedPrice = price;
     selectedPeriod = period;
     notifyListeners();
+  }
+
+  Future<String> handleVerify() async {
+    _setLoading(true);
+    final accessToken = await getToken();
+    if (accessToken == null) return '访问令牌无效';
+    try {
+      final checkResponse = await _purchaseService.verifyCoupon(planId, accessToken, couponCodeController.text);
+      if (checkResponse != null) {
+        _setLoading(false); // 加载完成
+        final value = checkResponse['data']?['value'];
+        if (value != null) {
+          if (value is int) {
+            discount = (100 - value) / 100;
+            return '优惠码可用';
+          } else {
+            resetDiscount();
+            return '优惠码无效';
+          }
+        }
+        resetDiscount();
+        return '优惠码无效';
+      } else {
+        _setLoading(false);
+        resetDiscount();
+        return '优惠码验证失败';
+      }
+    } catch (e) {
+      _setLoading(false);
+      resetDiscount();
+      return "$e";
+    }
   }
 
   Future<List<dynamic>> handleSubscribe() async {
@@ -65,6 +100,7 @@ class PurchaseDetailsViewModel extends ChangeNotifier {
         planId,
         selectedPeriod!,
         accessToken,
+        couponCodeController.text
       );
       if (orderResponse != null) {
         tradeNo = orderResponse['data']?.toString();
@@ -79,9 +115,14 @@ class PurchaseDetailsViewModel extends ChangeNotifier {
         _setStatusMessage('订单创建失败');
         return [];
       }
-    } catch (e) {
-      _setStatusMessage('发生错误: $e');
+    }  catch (e) {
+      _setStatusMessage("$e");
       return [];
     }
+  }
+
+  void resetDiscount() {
+    discount = 1.0;
+    couponCodeController.clear();
   }
 }

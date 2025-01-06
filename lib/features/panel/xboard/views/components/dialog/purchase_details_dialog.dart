@@ -210,8 +210,28 @@ class _PurchaseDetailsDialogState extends ConsumerState<PurchaseDetailsDialog> {
                       viewModel,
                     ),
                   const SizedBox(height: 16),
+                  TextFormField(
+                    controller: viewModel.couponCodeController,
+                    decoration: InputDecoration(
+                      labelText: t.purchase.couponCode,
+                      suffixIcon: TextButton(
+                        onPressed: () async {
+                          final res = await viewModel.handleVerify();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(res)),
+                          );
+                        },
+                        child: Text(t.purchase.verifyCoupon),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      prefixIcon: const Icon(Icons.redeem),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
                   Text(
-                    "${t.purchase.total}:${viewModel.selectedPrice != null ? '${viewModel.selectedPrice!.toStringAsFixed(2)} ${widget.t.purchase.rmb}' : widget.t.purchase.noData}",
+                    "${t.purchase.total}:${viewModel.selectedPrice != null ? '${(viewModel.selectedPrice! * viewModel.discount).toStringAsFixed(2)} ${widget.t.purchase.rmb}' : widget.t.purchase.noData}",
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -235,7 +255,7 @@ class _PurchaseDetailsDialogState extends ConsumerState<PurchaseDetailsDialog> {
                                 return PaymentMethodsDialog(
                                   tradeNo: viewModel.tradeNo!,
                                   paymentMethods: paymentMethods,
-                                  totalAmount: viewModel.selectedPrice!,
+                                  totalAmount: viewModel.selectedPrice! * viewModel.discount,
                                   t: widget.t,
                                   ref: widget.ref,
                                 );

@@ -38,7 +38,6 @@ class RegisterViewModel extends ChangeNotifier {
 
     try {
       final response = await _authService.sendVerificationCode(email);
-      print(response);
       if (response["data"] == true) {
         _showSnackbar(context, "验证码发送成功： $email");
       } else {
@@ -77,7 +76,6 @@ class RegisterViewModel extends ChangeNotifier {
         inviteCode,
         emailCode,
       );
-      print(result);
       if (result["data"] != null) {
         _showSnackbar(context, "注册成功");
         if (context.mounted) {
