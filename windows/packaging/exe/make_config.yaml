@@ -8,10 +8,5 @@ create_desktop_icon: true
 install_dir_name: "{autopf64}\\KuaiYun"
 setup_icon_file: ..\..\windows\runner\resources\app_icon.ico
 locales:
-  - ar
-  - en
-  - fa
-  - ru
-  - pt
-  - tr
+  - zh
 script_template: inno_setup.sas
