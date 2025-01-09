@@ -231,7 +231,7 @@ class _PurchaseDetailsDialogState extends ConsumerState<PurchaseDetailsDialog> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    "${t.purchase.total}:${viewModel.selectedPrice != null ? '${(viewModel.selectedPrice! * viewModel.discount).toStringAsFixed(2)} ${widget.t.purchase.rmb}' : widget.t.purchase.noData}",
+                    "${t.purchase.total}:${viewModel.selectedPrice != null ? '${(viewModel.selectedPrice! - viewModel.discount).toStringAsFixed(2)} ${widget.t.purchase.rmb}' : widget.t.purchase.noData}",
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -255,7 +255,7 @@ class _PurchaseDetailsDialogState extends ConsumerState<PurchaseDetailsDialog> {
                                 return PaymentMethodsDialog(
                                   tradeNo: viewModel.tradeNo!,
                                   paymentMethods: paymentMethods,
-                                  totalAmount: viewModel.selectedPrice! * viewModel.discount,
+                                  totalAmount: viewModel.selectedPrice! - viewModel.discount,
                                   t: widget.t,
                                   ref: widget.ref,
                                 );
