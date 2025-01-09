@@ -19,7 +19,7 @@ class PurchaseDetailsViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String get statusMessage => _statusMessage;
   final TextEditingController couponCodeController = TextEditingController();
-  double discount = 1.0;
+  double discount = 0.0;
 
   void _setLoading(bool value) {
     _isLoading = value;
@@ -54,7 +54,8 @@ class PurchaseDetailsViewModel extends ChangeNotifier {
         final value = checkResponse['data']?['value'];
         if (value != null) {
           if (value is int) {
-            discount = (100 - value) / 100;
+            if (checkResponse['data']?['type'] == 1) discount = value / 100;
+            if (checkResponse['data']?['type'] == 2) discount = selectedPrice! * (value / 100);
             return '优惠码可用';
           } else {
             resetDiscount();
@@ -122,7 +123,7 @@ class PurchaseDetailsViewModel extends ChangeNotifier {
   }
 
   void resetDiscount() {
-    discount = 1.0;
+    discount = 0.0;
     couponCodeController.clear();
   }
 }
